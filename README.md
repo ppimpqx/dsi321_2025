@@ -33,3 +33,13 @@ OpenWeatherMap API:	ดึงข้อมูลสภาพอากาศแบ
 K-Means Clustering:	จำแนกลักษณะสภาพอากาศและช่วยให้คำแนะนำในการปฏิบัติตัวแต่ละสถานการณ์
 
 Streamlit: พัฒนา dashboard แสดงข้อมูลสภาพอากาศแบบ interactive
+
+## สถาปัตยกรรมระบบ
+
+Docker
+
+ใช้ Docker รวมทุก dependency ภายใน container เดียว เช่น Python, Prefect agent, ไลบรารี, LakeFS client และ Streamlit เพื่อให้ระบบสามารถ deploy และ reproduce ได้ง่ายทุกเครื่อง
+
+✅ Docker Desktop ใช้ควบคุมและ monitor container ได้อย่างมีประสิทธิภาพ
+
+✅ ระบบมีความเสถียร รองรับการทำงานหลายเครื่อง
