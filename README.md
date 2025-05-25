@@ -17,3 +17,19 @@ DSI321: Big Data Infrastructure โครงสร้างพื้นฐาน
 * ประยุกต์ใช้ Machine Learning (K-Means Clustering) เพื่อจำแนกและวิเคราะห์ประเภทของสภาพอากาศในแต่ละช่วงเวลา
 
 * วางโครงร่างของระบบ Data Engineering ด้วย Docker, Prefect และ LakeFS เพื่อให้ระบบสามารถขยายและนำไปใช้ในบริบทอื่นได้ในอนาคต
+
+## เทคโนโลยีที่ใช้
+
+Docker: สร้าง environment ที่สามารถทำงานซ้ำได้ (reproducible) รันทุก component ใน environment เดียว เพื่อให้ deploy และ maintain ได้ง่าย
+
+Prefect: จัดการ workflow สำหรับดึงข้อมูลอัตโนมัติทุก 15 นาที
+
+LakeFS: จัดเก็บข้อมูลพร้อมระบบ version control เพื่อทดลองและ rollback ได้
+
+Parquet: จัดเก็บข้อมูลแบบ columnar สำหรับประสิทธิภาพสูง
+
+OpenWeatherMap API:	ดึงข้อมูลสภาพอากาศแบบ real-time จาก 15 พิกัดในพื้นที่รอบสาธิตรามฯ
+
+K-Means Clustering:	จำแนกลักษณะสภาพอากาศและช่วยให้คำแนะนำในการปฏิบัติตัวแต่ละสถานการณ์
+
+Streamlit: พัฒนา dashboard แสดงข้อมูลสภาพอากาศแบบ interactive
