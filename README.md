@@ -40,7 +40,7 @@ DSI321: Big Data Infrastructure โครงสร้างพื้นฐาน
 
 * แปลงข้อมูลให้อยู่ใน schema ที่เหมาะสม
 
-* จัดเก็บข้อมูลด้วย LakeFS (พร้อม versioning)
+* จัดเก็บข้อมูลด้วย LakeFS
 
 * วิเคราะห์ด้วย K-means Clustering
 
