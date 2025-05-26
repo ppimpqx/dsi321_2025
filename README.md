@@ -1,4 +1,4 @@
-# Real-time Weather Monitoring System for Satit Ramkhamhaeng Alumni Area
+# Real-time Weather Monitoring System for Satitram Alumni Area
 DSI321: Big Data Infrastructure โครงสร้างพื้นฐานคอมพิวเตอร์สำหรับการประมวลผลข้อมูลขนาดใหญ่
 ##  Introduction
 
@@ -116,3 +116,21 @@ Prefect ถูกใช้ในการควบคุม workflow สำห�
 - แสดงผลเชิง context เช่น:
   - **Cluster 1:** ฝนตกหนัก ควรหลีกเลี่ยงการเดินทาง
   - **Cluster 2:** อากาศร้อนและแห้ง ควรระวังปัญหาสุขภาพ
+
+## การใช้งานระบบ
+
+### Clone Repository
+git clone https://github.com/ppimpqx/dsi321_2025.git
+cd dsi321_2025
+
+### รัน Docker
+docker-compose up --build
+
+### เรียกดู Prefect UI
+http://localhost:4200
+
+### เข้าถึง UI ของ LakeFS
+http://localhost:8001
+
+### ดู Streamlit Dashboard
+http://localhost:8501
