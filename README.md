@@ -36,66 +36,76 @@ DSI321: Big Data Infrastructure โครงสร้างพื้นฐาน
 
 ## โครงสร้างระบบ
 
+### Data Schema
+
+| คอลัมน์ | คำอธิบาย |
+|---------|----------|
+| `timestamp` | เวลาเก็บข้อมูล (microsecond precision) |
+| `created_at` | เวลาสร้าง record |
+| `minute` | นาทีในแต่ละชั่วโมง |
+| `province` | จังหวัดที่ตั้งของสถานที่เก็บข้อมูล |
+| `location_name` | ชื่อสถานที่ เช่น Ramkhamhaeng Alumni |
+| `api_location` | เขตหรือย่านที่ส่งไปใน API |
+| `weather_main` | ประเภทสภาพอากาศ เช่น Rain, Clear |
+| `weather_description` | รายละเอียดสภาพอากาศ เช่น light rain |
+| `main.temp` | อุณหภูมิ (°C) |
+| `main.humidity` | ความชื้น (%) |
+| `wind.speed` | ความเร็วลม (m/s) |
+| `precipitation` | ปริมาณฝน (mm) |
+| `day`, `hour`, `month`, `year` | รายละเอียดของวันที่และเวลา |
+
 ### Docker
 
-ใช้ Docker รวมทุก dependency ภายใน container เดียว เช่น Python, Prefect agent, ไลบรารี, LakeFS client และ Streamlit เพื่อให้ระบบสามารถ deploy และ reproduce ได้ง่ายทุกเครื่อง
+ระบบทั้งหมดถูก containerized ด้วย Docker เพื่อให้สามารถ deploy ได้ง่ายและรองรับการทำงานหลายเครื่อง
 
-✅ Docker Desktop ใช้ควบคุมและ monitor container ได้อย่างมีประสิทธิภาพ
-
-✅ ระบบมีความเสถียร รองรับการทำงานหลายเครื่อง
+- รวมทุก dependency ไว้ใน container เดียว เช่น Python, Prefect agent, ไลบรารีสำหรับดึงและประมวลผลข้อมูล, LakeFS client, Streamlit
+  
+- รองรับการทำงานซ้ำ (reproducible) และย้ายระบบไปใช้งานบนเครื่องอื่นได้ง่าย
 
 ### Prefect
-ควบคุม workflow สำหรับ pipeline การดึงข้อมูลอัตโนมัติทุก 15 นาที โดย Prefect agent ทำงานใน Docker container เดียวกัน
-ขั้นตอนสำคัญใน flow:
+Prefect ถูกใช้ในการควบคุม workflow สำหรับการเก็บข้อมูลสภาพอากาศจาก OpenWeatherMap API ทุก ๆ 15 นาทีโดยอัตโนมัติ
 
-ดึงข้อมูลจาก OpenWeatherMap API (15 สถานที่)
-
-แปลงข้อมูลให้เหมาะกับการจัดเก็บ
-
-ส่งต่อข้อมูลไปยัง LakeFS
-
-✅ รองรับ retry อัตโนมัติเมื่อเกิด error
-✅ ตรวจสอบสถานะ flow แต่ละขั้นได้ชัดเจน
+- Prefect agent ทำงานใน Docker container
+  
+- Flow ประกอบด้วย:
+  
+  - ดึงข้อมูลจาก API (15 พิกัด)
+    
+  - แปลงข้อมูลให้อยู่ใน schema ที่เหมาะสม
+    
+  - ส่งข้อมูลไปยังระบบจัดเก็บ (LakeFS)
 
 ### LakeFS
-เก็บข้อมูลแบบ version-controlled ลงใน object storage โดยใช้ไฟล์ Parquet ซึ่งเหมาะกับ Big Data และระบบ distributed เช่น Spark
+เก็บข้อมูลแบบ version-controlled ลงใน object storage โดยใช้ไฟล์ Parquet ซึ่งเหมาะกับ Big Data และระบบ distributed
 
-ข้อมูลที่จัดเก็บ:
-
-timestamp
-
-location (ละติจูด, ลองจิจูด, จังหวัด, ชื่อสถานที่)
-
-weather condition
-
-temperature, humidity, wind speed, rainfall
-
-วัน/เวลา
-
-✅ ใช้ branching ทดลองแก้ไขข้อมูลโดยไม่กระทบกับข้อมูลจริง
-✅ รองรับการ rollback หากเกิดข้อผิดพลาด
+ข้อมูลที่จัดเก็บ ได้แก่:
+- เวลาที่เก็บ (`timestamp`, `created_at`)
+- ตำแหน่ง (`province`, `location_name`, `api_location`)
+- สภาพอากาศ (`weather_main`, `weather_description`)
+- ตัวแปรทางสภาพอากาศ (`main.temp`, `main.humidity`, `wind.speed`, `precipitation`)
+- รายละเอียดเวลา (`day`, `hour`, `month`, `year`)
 
 ### Streamlit Dashboard
-สร้าง dashboard เพื่อแสดงผล:
+สร้าง dashboard แบบ interactive ด้วย Streamlit สำหรับแสดงผลแบบ real-time และย้อนหลัง
 
-สภาพอากาศแบบ real-time
+ความสามารถหลัก:
+- สรุปสภาพอากาศแบบ real-time
+- แนวโน้มอุณหภูมิ, ความชื้น และปริมาณฝนในช่วงเวลา
+- แสดงความแปรปรวนของสภาพอากาศรายวัน
+- วิเคราะห์ Pattern สภาพอากาศในแต่ละวัน
 
-ข้อมูลย้อนหลัง
-
-กราฟแนวโน้ม (อุณหภูมิ, ความชื้น, ปริมาณฝน)
-
-Summary ข้อมูลในแต่ละช่วงเวลา
-
-ความแปรปรวนของอุณหภูมิ
-
-pattern ของสภาพอากาศในแต่ละวัน
-
-✅ Backend เชื่อมต่อกับ Parquet บน LakeFS โดยตรง
-✅ โหลดข้อมูลเร็วและยืดหยุ่นในการแสดงผล
+กราฟ:
+  - แนวโน้มอุณหภูมิ
+  - ความชื้น
+  - ปริมาณฝน
+  - ความแปรปรวนของอุณหภูมิ
+  - Pattern ของสภาพอากาศ
 
 ### Machine Learning: K-means Clustering
-วิเคราะห์ลักษณะสภาพอากาศจากข้อมูลจริง
+นำข้อมูลที่เก็บมา มาใช้วิเคราะห์เชิงลึกโดยใช้เทคนิค K-means Clustering เพื่อจำแนกลักษณะของสภาพอากาศในแต่ละช่วงเวลา
 
-จำแนกกลุ่ม weather pattern ที่คล้ายกัน
-
-แสดงผลเชิงบริบทให้ผู้ใช้เข้าใจง่าย เช่น "ฝนตกหนัก ควรหลีกเลี่ยงการเดินทาง"
+- จำแนกประเภทของสภาพอากาศ (ฝนตกหนัก, ร้อนชื้น, ลมแรง ฯลฯ)
+- ใช้ features ได้แก่ `temp`, `humidity`, `wind speed`, `precipitation`
+- แสดงผลเชิง context เช่น:
+  - **Cluster 1:** ฝนตกหนัก ควรหลีกเลี่ยงการเดินทาง
+  - **Cluster 2:** อากาศร้อนและแห้ง ควรระวังปัญหาสุขภาพ
