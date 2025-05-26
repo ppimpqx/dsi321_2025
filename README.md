@@ -118,19 +118,21 @@ Prefect ถูกใช้ในการควบคุม workflow สำห�
   - **Cluster 2:** อากาศร้อนและแห้ง ควรระวังปัญหาสุขภาพ
 
 ## การใช้งานระบบ
+```bash
 
-### Clone Repository
+# Clone Repository
 git clone https://github.com/ppimpqx/dsi321_2025.git
+
 cd dsi321_2025
 
-### รัน Docker
+# รัน Docker
 docker-compose up --build
 
-### เรียกดู Prefect UI
+# เรียกดู Prefect UI
 http://localhost:4200
 
-### เข้าถึง UI ของ LakeFS
+# เข้าถึง UI ของ LakeFS
 http://localhost:8001
 
-### ดู Streamlit Dashboard
+# ดู Streamlit Dashboard
 http://localhost:8501
