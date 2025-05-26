@@ -40,12 +40,12 @@ DSI321: Big Data Infrastructure โครงสร้างพื้นฐาน
 
 | คอลัมน์ | คำอธิบาย |
 |---------|----------|
-| `timestamp` | เวลาเก็บข้อมูล (microsecond precision) |
+| `timestamp` | เวลาเก็บข้อมูล |
 | `created_at` | เวลาสร้าง record |
 | `minute` | นาทีในแต่ละชั่วโมง |
 | `province` | จังหวัดที่ตั้งของสถานที่เก็บข้อมูล |
-| `location_name` | ชื่อสถานที่ เช่น Ramkhamhaeng Alumni |
-| `api_location` | เขตหรือย่านที่ส่งไปใน API |
+| `location_name` | ชื่อสถานที่ เช่น Satitram Alumni |
+| `api_location` | เขตหรือย่านที่ส่งไปใน API เช่น Bang Kapi	 |
 | `weather_main` | ประเภทสภาพอากาศ เช่น Rain, Clear |
 | `weather_description` | รายละเอียดสภาพอากาศ เช่น light rain |
 | `main.temp` | อุณหภูมิ (°C) |
