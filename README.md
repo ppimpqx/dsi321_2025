@@ -34,7 +34,7 @@ DSI321: Big Data Infrastructure โครงสร้างพื้นฐาน
 
 * Streamlit: พัฒนา dashboard แสดงข้อมูลสภาพอากาศแบบ interactive
 
-## สถาปัตยกรรมระบบ
+## โครงสร้างระบบ
 
 ### Docker
 
