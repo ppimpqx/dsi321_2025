@@ -117,6 +117,11 @@ LakeFS UI รันที่ http://localhost:8001
 ตัวอย่าง Streamlit Dashboard:
 ![image](https://github.com/user-attachments/assets/a734e5db-1fb9-49a9-ae29-e872636d744c)
 
+![image](https://github.com/user-attachments/assets/db926341-ddfe-4765-9843-30db1cf52d4a)
+
+![image](https://github.com/user-attachments/assets/fc048369-957c-47fd-941d-a353c30c710f)
+
+
 ### Machine Learning: K-means Clustering
 นำข้อมูลที่เก็บมา มาใช้วิเคราะห์เชิงลึกโดยใช้เทคนิค K-means Clustering เพื่อจำแนกลักษณะของสภาพอากาศในแต่ละช่วงเวลา
 
